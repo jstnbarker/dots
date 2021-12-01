@@ -11,6 +11,7 @@ void setup()
   cam = new Capture(this, cameras[1]);
   printArray(cameras);
   cam.start();
+  frameRate(24);
   fill(255);
 }
 
@@ -22,7 +23,7 @@ void captureEvent(Capture cam)
 void draw()
 {
   background(0);
-  int dotsize = 15;
+  int dotsize = 10;
   for (int i = 0; i < cam.height; i+=dotsize)
   {
     for (int j = 0; j < cam.width; j+=dotsize)
@@ -30,7 +31,7 @@ void draw()
       PImage temp = cam.get(j,i,dotsize,dotsize);
       temp.loadPixels();
       float sectionDarkness = 0;
-      for(int k = 0; k < temp.pixels.length; k+=5)
+      for(int k = 0; k < temp.pixels.length; k+=dotsize/2)
       {
         color ctemp = temp.pixels[k];
         sectionDarkness += ((red(ctemp) + blue(ctemp) + green(ctemp))/3)*5;
